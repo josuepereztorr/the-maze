@@ -1,11 +1,15 @@
 package edu.wctc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Maze maze = new Maze();
 
+        System.out.println(maze.getCurrentRoomDescription());
+        System.out.println(maze.getCurrentRoomExits());
+
+        char input = scanner.nextLine().charAt(0);
     }
 }
