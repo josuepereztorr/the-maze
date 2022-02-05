@@ -5,7 +5,7 @@ import edu.wctc.room.Interactable;
 import edu.wctc.room.Lootable;
 import edu.wctc.room.Room;
 
-public class Bedroom extends Room implements Interactable, Lootable {
+public class Bedroom extends Room implements Lootable, Interactable {
 
     public Bedroom() {
         super("BEDROOM");
@@ -13,17 +13,18 @@ public class Bedroom extends Room implements Interactable, Lootable {
 
     @Override
     public String getDescription() {
-        return "You are in the BEDROOM\n Looks like someone left in a hurry because there are all sorts of belongings in the floor.";
+        return "You are in a dim and cold room, which you make out to be a BEDROOM\n" +
+                "Looks like someone left in a hurry because there are all sorts of belongings in the floor.";
     }
 
     @Override
     public String interact(Player player) {
-        return null;
+        return "After flipping the light switch several times; you notice the light bulb is burned out.";
     }
 
     @Override
     public String loot(Player player) {
-        return null;
+        return "You have found a wallet with $20, a bus pass, and a Tesla key card.";
     }
 
 }
