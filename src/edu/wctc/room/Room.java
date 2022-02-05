@@ -1,7 +1,10 @@
 package edu.wctc.room;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public abstract class Room {
-    // Fields
     private String name;
     private Room north;
     private Room south;
@@ -10,35 +13,62 @@ public abstract class Room {
     private Room up;
     private Room down;
 
-    // Constructor- sets the name for the room
     public Room(String name) {
         this.name = name;
     }
 
-    // Abstract method - string to display to the Player when they enter a Room which must contain a description of what they see
     public abstract String getDescription();
 
-    // todo - given a direction if there is another Room  in the given direction, that Room is returned; otherwise return null.
+    // returns a Room object if there is a connected room in the supplied direction
     public Room getAdjoiningRoom(char direction) {
+        Room[] rooms = {north,south,east,west,up,down};
+        char[] cardinalChar = {'n','s','e','w','u','d'};
+
+        if (isValidDirection(direction)) {
+            for (int i = 0; i < cardinalChar.length ; i++) {
+                if (cardinalChar[i] == direction) {
+                    return rooms[i];
+                }
+            }
+        }
+
         return null;
     }
 
-    // todo - returns a String of a list of all the directions the Player could exit form this Room to another Room.
-    public String getExits() {
-        return "d";
-    }
-
-    // todo - given a direction, if there is another Room in the given direction, return true, otherwise return false
+    // returns true if there is a connected room in the supplied direction
     public boolean isValidDirection(char direction) {
+        Room[] rooms = {north,south,east,west,up,down};
+        char[] cardinalChar = {'n','s','e','w','u','d'};
+
+        // finds the index of "direction" from cardinalChar[], then it checks for null in the same index in rooms[]
+        for (int i = 0; i < cardinalChar.length ; i++) {
+            if (cardinalChar[i] == direction) {
+                return !Objects.isNull(rooms[i]);
+            }
+        }
+
         return false;
     }
 
-    // Getter
+    // returns a String with the available exits
+    public String getExits() {
+        String[] cardinalStr = {"North","South","East","West","Up","Down"};
+        List<String> str = new ArrayList<>();
+        char cardinalChar;
+
+        for (String s : cardinalStr) {
+            cardinalChar = (s.toLowerCase()).charAt(0);
+            if (isValidDirection(cardinalChar)) {
+                str.add(s);
+            }
+        }
+        return "The exits are: " + String.join(",", str);
+    }
+
     public String getName() {
         return name;
     }
 
-    // Setters
     public void setNorth(Room north) {
         this.north = north;
     }
