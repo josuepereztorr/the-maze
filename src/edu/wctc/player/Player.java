@@ -1,4 +1,4 @@
-package edu.wctc;
+package edu.wctc.player;
 
 import java.util.List;
 
@@ -21,8 +21,7 @@ public class Player {
     public String getInventory() {
         if (!inventory.isEmpty()) {
             String str = String.join(", ", inventory);
-            String inv = "Inventory: " + str;
-            return inv;
+            return "Inventory: " + str;
         } else {
             return "No items in inventory";
         }

@@ -1,4 +1,4 @@
-package edu.wctc;
+package edu.wctc.room;
 
 public abstract class Room {
     // Fields

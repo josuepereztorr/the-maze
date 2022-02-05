@@ -1,4 +1,8 @@
-package edu.wctc;
+package edu.wctc.room.type;
+
+import edu.wctc.player.Player;
+import edu.wctc.room.Lootable;
+import edu.wctc.room.Room;
 
 public class Office extends Room implements Lootable {
 

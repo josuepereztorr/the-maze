@@ -1,5 +1,7 @@
 package edu.wctc;
 
+import edu.wctc.maze.Maze;
+
 import java.util.*;
 
 public class Main {

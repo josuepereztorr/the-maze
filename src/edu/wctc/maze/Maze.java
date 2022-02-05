@@ -1,4 +1,13 @@
-package edu.wctc;
+package edu.wctc.maze;
+
+import edu.wctc.room.type.Bedroom;
+import edu.wctc.room.type.Kitchen;
+import edu.wctc.room.type.Office;
+import edu.wctc.player.Player;
+import edu.wctc.room.Exit;
+import edu.wctc.room.Interactable;
+import edu.wctc.room.Lootable;
+import edu.wctc.room.Room;
 
 public class Maze {
     // Fields
@@ -10,8 +19,7 @@ public class Maze {
     public Maze() {
 
         // create a player object
-        Player player = new Player();
-        this.player =  player;
+        this.player =  new Player();
 
         // create 3 rooms
         Bedroom bedroom = new Bedroom();
@@ -31,8 +39,8 @@ public class Maze {
 
     // todo - access the Exitable interface method
     public String exitCurrentRoom() {
-        if (currentRoom.getClass().isAssignableFrom(Exitable.class)) {
-            return currentRoom.exit(player);
+        if (currentRoom.getClass().isAssignableFrom(Exit.class)) {
+            return "d";
         } else {
             return "Did not find the main exit.";
         }

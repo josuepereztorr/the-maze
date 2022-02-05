@@ -1,6 +1,10 @@
-package edu.wctc;
+package edu.wctc.room.type;
 
-public class Kitchen extends Room implements Exitable {
+import edu.wctc.player.Player;
+import edu.wctc.room.Exit;
+import edu.wctc.room.Room;
+
+public class Kitchen extends Room implements Exit {
 
     public Kitchen() {
         super("KITCHEN");
