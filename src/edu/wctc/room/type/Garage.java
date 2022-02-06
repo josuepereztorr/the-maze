@@ -7,7 +7,7 @@ import edu.wctc.room.Room;
 
 public class Garage extends Room implements Interactable, Exit {
 
-    public Garage(String name) {
+    public Garage() {
         super("GARAGE");
     }
 

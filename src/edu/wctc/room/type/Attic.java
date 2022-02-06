@@ -7,7 +7,7 @@ import edu.wctc.room.Room;
 
 public class Attic extends Room implements Lootable, Interactable {
 
-    public Attic(String name) {
+    public Attic() {
         super("ATTIC");
     }
 

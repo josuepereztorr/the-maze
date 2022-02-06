@@ -4,7 +4,7 @@ import edu.wctc.room.Room;
 
 public class Hallway extends Room {
 
-    public Hallway(String name) {
+    public Hallway() {
         super("HALLWAY");
     }
 
