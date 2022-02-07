@@ -5,6 +5,7 @@ import edu.wctc.player.*;
 import edu.wctc.room.type.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Maze {
 
@@ -38,39 +39,63 @@ public class Maze {
 
     }
 
-//    // todo - access the Exitable interface method
-//    public String exitCurrentRoom() {
-//        if (currentRoom.getClass().isAssignableFrom(Exit.class)) {
-//            return "d";
-//        } else {
-//            return "Did not find the main exit.";
-//        }
-//    }
-//
-//    // todo - return the Interactable interface method
-//    public String interactWithCurrentRoom() {
-//        if (currentRoom.getClass().isAssignableFrom(Interactable.class)) {
-//            return currentRoom.getExits();
-//        } else {
-//            return "Found no interactions to be done in this room.";
-//        }
-//    }
+    public String exitCurrentRoom() {
+        List<String> list = getInterfacesFromRoom(currentRoom);
+        String message = "";
 
-//    // todo - return the Lootable interface method
-//    public String lootCurrentRoom() {
-//        ArrayList<String> interfaceList = getInterfacesFromRoom(currentRoom);
-//        //String[] interfaceArr = {"Lootable", "Interactable", "Exit"};
-//        String loot = "";
-//
-//        for (String strList: interfaceList) {
-//            if (strList.equals("Lootable")) {
-//                loot += "";
-//            } else {
-//                loot += "Did not find any items to take.";
-//            }
-//        }
-//        return loot;
-//    }
+        if (list.contains("Exit")) {
+            if ("Garage".equals(currentRoom.getClass().getSimpleName())) {
+                message = ((Garage) currentRoom).interact(player);
+            }
+            message = "Did not find any way to exit this room.";
+        }
+
+        return message;
+    }
+
+    public String interactWithCurrentRoom() {
+        List<String> list = getInterfacesFromRoom(currentRoom);
+        String message = "";
+
+        if (list.contains("Interactable")) {
+            switch (currentRoom.getClass().getSimpleName()) {
+                case "Attic":
+                    message = ((Attic) currentRoom).interact(player);
+                case "Bedroom":
+                    message = ((Bedroom) currentRoom).interact(player);
+                case "Garage":
+                    message = ((Garage) currentRoom).interact(player);
+                case "Kitchen":
+                    message = ((Kitchen) currentRoom).interact(player);
+                default:
+                    message = "Did not find anything to do in this room";
+            }
+        }
+
+        return message;
+    }
+
+    public String lootCurrentRoom() {
+        List<String> list = getInterfacesFromRoom(currentRoom);
+        String message = "";
+
+        if (list.contains("Lootable")) {
+            switch (currentRoom.getClass().getSimpleName()) {
+                case "Attic":
+                    message = ((Attic) currentRoom).interact(player);
+                case "Bedroom":
+                    message = ((Bedroom) currentRoom).interact(player);
+                case "Office":
+                    message = ((Garage) currentRoom).interact(player);
+                case "Kitchen":
+                    message = ((Kitchen) currentRoom).interact(player);
+                default:
+                    message = "Did not find anything worth taking in this room";
+            }
+        }
+
+        return message;
+    }
 
     public boolean move(char direction) {
         if (currentRoom.isValidDirection(direction)) {
@@ -100,16 +125,14 @@ public class Maze {
         return isFinished;
     }
 
-    private ArrayList<String> getInterfacesFromRoom(Room currentRoom) {
+    private List<String> getInterfacesFromRoom(Room currentRoom) {
+        Class[] classes = currentRoom.getClass().getInterfaces();
+        List<String> interfaces = new ArrayList<>();
 
-        Class[] objects = currentRoom.getClass().getInterfaces();
-        ArrayList<String> interfaces = new ArrayList<>();
-
-        for (Class c : objects) {
-            // removes the "edu.wctc." and trims the string
-            String intrface = (c.getName()).replaceAll("edu.wctc.", "").trim();
-            interfaces.add(intrface);
+        for (Class c : classes) {
+            interfaces.add(c.getSimpleName());
         }
+
         return interfaces;
     }
 }
