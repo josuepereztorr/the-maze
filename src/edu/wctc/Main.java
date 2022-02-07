@@ -8,16 +8,18 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        Maze maze = new Maze();
-//
-//        System.out.println(maze.getCurrentRoomDescription());
-//        System.out.println(maze.getCurrentRoomExits());
-//
-//        char input = scanner.nextLine().charAt(0);
-        Office office = new Office();
-        Kitchen kitchen = new Kitchen();
-        kitchen.setNorth(office);
-        System.out.println(kitchen.isValidDirection('n'));;
+        Scanner scanner = new Scanner(System.in);
+        Maze maze = new Maze();
+
+        do {
+
+            System.out.println(maze.getCurrentRoomDescription());
+            System.out.println(maze.getCurrentRoomExits());
+            System.out.print(">> ");
+            scanner.next();
+
+
+        } while (maze.isFinished());
     }
+
 }
