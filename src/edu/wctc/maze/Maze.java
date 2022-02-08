@@ -16,8 +16,7 @@ public class Maze {
     public Maze() {
 
         player = new Player();
-        player.addToScore(0);
-
+        //player.addToScore(0);
         Attic attic = new Attic();
         Bedroom bedroom = new Bedroom();
         Garage garage = new Garage();
@@ -40,10 +39,15 @@ public class Maze {
     }
 
     public String exitCurrentRoom() {
-        List<String> list = getInterfacesFromRoom(currentRoom);
+        Class[] classes = currentRoom.getClass().getInterfaces();
+        List<String> interfaces = new ArrayList<>();
         String message = "";
 
-        if (list.contains("Exit")) {
+        for (Class c : classes) {
+            interfaces.add(c.getSimpleName());
+        }
+
+        if (interfaces.contains("Exit")) {
             message = ((Garage) currentRoom).exit(player);
             isFinished = true;
         } else {
@@ -54,10 +58,15 @@ public class Maze {
     }
 
     public String interactWithCurrentRoom() {
-        List<String> list = getInterfacesFromRoom(currentRoom);
+        Class[] classes = currentRoom.getClass().getInterfaces();
+        List<String> interfaces = new ArrayList<>();
         String message = "Did not find anything to interact with in this room";
 
-        if (list.contains("Interactable")) {
+        for (Class c : classes) {
+            interfaces.add(c.getSimpleName());
+        }
+
+        if (interfaces.contains("Interactable")) {
             message = switch (currentRoom.getName()) {
                 case "ATTIC" -> ((Attic) currentRoom).interact(player);
                 case "BEDROOM" -> ((Bedroom) currentRoom).interact(player);
@@ -71,10 +80,15 @@ public class Maze {
     }
 
     public String lootCurrentRoom() {
-        List<String> list = getInterfacesFromRoom(currentRoom);
+        Class[] classes = currentRoom.getClass().getInterfaces();
+        List<String> interfaces = new ArrayList<>();
         String message = "Did not find anything worth taking in this room";
 
-        if (list.contains("Lootable")) {
+        for (Class c : classes) {
+            interfaces.add(c.getSimpleName());
+        }
+
+        if (interfaces.contains("Lootable")) {
             message = switch (currentRoom.getName()) {
                 case "ATTIC" -> ((Attic) currentRoom).loot(player);
                 case "BEDROOM" -> ((Bedroom) currentRoom).loot(player);
@@ -114,16 +128,5 @@ public class Maze {
 
     public boolean isFinished() {
         return isFinished;
-    }
-
-    private List<String> getInterfacesFromRoom(Room currentRoom) {
-        Class[] classes = currentRoom.getClass().getInterfaces();
-        List<String> interfaces = new ArrayList<>();
-
-        for (Class c : classes) {
-            interfaces.add(c.getSimpleName());
-        }
-
-        return interfaces;
     }
 }

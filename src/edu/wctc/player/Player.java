@@ -1,10 +1,11 @@
 package edu.wctc.player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private int score;
-    private List<String> inventory;
+    private List<String> inventory = new ArrayList<>();
 
     public void addToInventory(String item) {
         inventory.add(item);
