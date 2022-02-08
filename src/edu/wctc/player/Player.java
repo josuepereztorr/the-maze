@@ -15,7 +15,7 @@ public class Player {
     }
 
     public String getInventory() {
-        if (!inventory.isEmpty()) {
+        if (inventory != null) {
             String str = String.join(", ", inventory);
             return "Inventory: " + str;
         } else {

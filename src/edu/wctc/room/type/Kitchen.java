@@ -24,6 +24,8 @@ public class Kitchen extends Room implements Interactable, Lootable {
 
     @Override
     public String loot(Player player) {
+        player.addToInventory("Kitchen Towel");
+        player.addToScore(10);
         return "You have found a kitchen towel";
     }
 }

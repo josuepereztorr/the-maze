@@ -19,11 +19,14 @@ public class Attic extends Room implements Lootable, Interactable {
 
     @Override
     public String interact(Player player) {
-        return "After feeling something around your face, you pull it and a light bulb turns on illuminating the room.";
+        player.addToScore(25);
+        return "After feeling something around your face, you pull it down and a light bulb turns on illuminating the entire room.";
     }
 
     @Override
     public String loot(Player player) {
-        return "You feel your foot hitting something heavy as you walk around, you pick it up is a medium sized sledge hammer.";
+        player.addToInventory("Sledge Hammer");
+        player.addToScore(350);
+        return "You feel your foot hitting something heavy as you walk around, you pick it up and find it's a medium sized sledge hammer.";
     }
 }

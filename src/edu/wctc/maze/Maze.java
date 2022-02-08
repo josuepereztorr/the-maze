@@ -36,7 +36,6 @@ public class Maze {
         kitchen.setWest(hallway);
         kitchen.setSouth(garage);
         garage.setNorth(kitchen);
-
     }
 
     public String exitCurrentRoom() {
@@ -44,10 +43,10 @@ public class Maze {
         String message = "";
 
         if (list.contains("Exit")) {
-            if ("Garage".equals(currentRoom.getClass().getSimpleName())) {
-                message = ((Garage) currentRoom).interact(player);
-            }
-            message = "Did not find any way to exit this room.";
+            message = ((Garage) currentRoom).exit(player);
+            isFinished = true;
+        } else {
+            message = "There is no way out of this house through this room.";
         }
 
         return message;
@@ -55,21 +54,16 @@ public class Maze {
 
     public String interactWithCurrentRoom() {
         List<String> list = getInterfacesFromRoom(currentRoom);
-        String message = "";
+        String message = "Did not find anything to interact with in this room";
 
         if (list.contains("Interactable")) {
-            switch (currentRoom.getClass().getSimpleName()) {
-                case "Attic":
-                    message = ((Attic) currentRoom).interact(player);
-                case "Bedroom":
-                    message = ((Bedroom) currentRoom).interact(player);
-                case "Garage":
-                    message = ((Garage) currentRoom).interact(player);
-                case "Kitchen":
-                    message = ((Kitchen) currentRoom).interact(player);
-                default:
-                    message = "Did not find anything to do in this room";
-            }
+            message = switch (currentRoom.getName()) {
+                case "ATTIC" -> ((Attic) currentRoom).interact(player);
+                case "BEDROOM" -> ((Bedroom) currentRoom).interact(player);
+                case "GARAGE" -> ((Garage) currentRoom).interact(player);
+                case "KITCHEN" -> ((Kitchen) currentRoom).interact(player);
+                default -> "Did not find anything to interact with in this room";
+            };
         }
 
         return message;
@@ -77,21 +71,16 @@ public class Maze {
 
     public String lootCurrentRoom() {
         List<String> list = getInterfacesFromRoom(currentRoom);
-        String message = "";
+        String message = "Did not find anything worth taking in this room";
 
         if (list.contains("Lootable")) {
-            switch (currentRoom.getClass().getSimpleName()) {
-                case "Attic":
-                    message = ((Attic) currentRoom).interact(player);
-                case "Bedroom":
-                    message = ((Bedroom) currentRoom).interact(player);
-                case "Office":
-                    message = ((Garage) currentRoom).interact(player);
-                case "Kitchen":
-                    message = ((Kitchen) currentRoom).interact(player);
-                default:
-                    message = "Did not find anything worth taking in this room";
-            }
+            message = switch (currentRoom.getName()) {
+                case "ATTIC" -> ((Attic) currentRoom).loot(player);
+                case "BEDROOM" -> ((Bedroom) currentRoom).loot(player);
+                case "OFFICE" -> ((Office) currentRoom).loot(player);
+                case "KITCHEN" -> ((Kitchen) currentRoom).loot(player);
+                default -> "Did not find anything worth taking in this room";
+            };
         }
 
         return message;
@@ -101,8 +90,9 @@ public class Maze {
         if (currentRoom.isValidDirection(direction)) {
             currentRoom = currentRoom.getAdjoiningRoom(direction);
             return true;
-        } else
+        }  else {
             return false;
+        }
     }
 
     public int getPlayerScore() {

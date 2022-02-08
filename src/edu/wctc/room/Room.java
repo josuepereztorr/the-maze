@@ -62,7 +62,7 @@ public abstract class Room {
                 str.add(s);
             }
         }
-        return "The exits are: " + String.join(",", str);
+        return String.join(",", str);
     }
 
     public String getName() {
