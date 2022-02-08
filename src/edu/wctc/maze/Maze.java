@@ -16,6 +16,7 @@ public class Maze {
     public Maze() {
 
         player = new Player();
+        player.addToScore(0);
 
         Attic attic = new Attic();
         Bedroom bedroom = new Bedroom();
